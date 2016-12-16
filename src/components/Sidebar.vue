@@ -13,6 +13,6 @@ export default {
 <style lang="css">
 .sidebar {
   width: 50px;
-  height: auto;
+  background-color: red;
 }
 </style>
