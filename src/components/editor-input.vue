@@ -2,6 +2,7 @@
   <div>
     <input type="text" v-model="userInput" v-on:keydown.prevent="update">
 
+    <sidebar :lines="lines"></sidebar>
     <editor-line v-for="line in lines" :line="line"></editor-line>
 
     <pre>
@@ -13,10 +14,13 @@
 
 <script>
 import line from './editor-line.vue'
+import sidebar from './editor-line-count.vue'
+import { isModifier } from '../utils/keyManager'
 
 export default {
   components: {
-    'editor-line': line
+    'editor-line': line,
+    'sidebar': sidebar
   },
   data () {
     return {
@@ -28,21 +32,25 @@ export default {
   methods: {
     update (event) {
       console.log(event)
-      if (this.isPrintableKey (event.keyCode)) {
-        this.userInput += event.key
-      }
-
-      if (event.keyCode == 13) {
+      if (isModifier(event.keyCode)) {
         this.lineCount++
-        this.lines.push({ id: this.lineCount, content: this.userInput })
-        this.userInput = ''
+        this.lines.push({ id: this.lineCount, content: '' })
       }
-      if (event.keyCode == 8) {
-        this.userInput = this.userInput.slice(0,-1)
-      }
-      if (event.keyCode == 9) {
-        this.userInput += '----'
-      }
+      // if (this.isPrintableKey (event.keyCode)) {
+      //   this.userInput += event.key
+      // }
+      //
+      // if (event.keyCode == 13) {
+      //   this.lineCount++
+      //   this.lines.push({ id: this.lineCount, content: this.userInput })
+      //   this.userInput = ''
+      // }
+      // if (event.keyCode == 8) {
+      //   this.userInput = this.userInput.slice(0,-1)
+      // }
+      // if (event.keyCode == 9) {
+      //   this.userInput += '----'
+      // }
     },
     isPrintableKey (keyCode) {
       var valid =

@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
-    {{ line.id }}
-    <span v-for="word in breakBySpace(line)">{{ word }}</span>
+
+    <span>{{ line.id }}</span> <span v-for="word in breakBySpace(line)">{{ word }}</span>
   </div>
 </template>
 
