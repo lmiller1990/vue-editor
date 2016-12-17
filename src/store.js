@@ -51,10 +51,13 @@ const mutations = {
   },
   changeColumn (state, direction) {
     if (direction == 'right') {
-      state.currentColumnNumber++
+      console.log(state.currentFile.lines)
+      if (state.currentColumnNumber < state.currentFile.lines[state.currentLineNumber].content.length - 1)
+        state.currentColumnNumber++
     }
     else if (direction == 'left') {
-      state.currentColumnNumber--
+      if (state.currentColumnNumber - 1 >= 0)
+        state.currentColumnNumber--
     }
   },
   updateCurrentFile (state, file) {

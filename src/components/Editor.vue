@@ -3,11 +3,13 @@
     Editor
     <editor-input></editor-input>
     <container></container>
-    <pre>
-      Line: {{ $store.state.currentLineNumber }}
-      Column: {{ $store.state.currentColumnNumber }}
-      Current Line {{ getCurrentLineContent }}
-    </pre>
+    <div class="debug">
+      Debug:
+      <p>Line: {{ $store.state.currentLineNumber }}
+        Length: {{ $store.state.currentFile.lines[$store.state.currentLineNumber].content.length }}</p>
+      <p>Column: {{ $store.state.currentColumnNumber }}</p>
+      <p>Current Line {{ getCurrentLineContent }}</p>
+    </div>
   </div>
 </template>
 
@@ -42,5 +44,10 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
+.debug {
+  font-size: 1rem;
+  border: solid 1px grey;
+  margin-top: 5em;
+}
 </style>
