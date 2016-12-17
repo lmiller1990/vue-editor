@@ -15,10 +15,7 @@ const state = {
 }
 
 const mutations = {
-  addFile (state) { // first arg for mutations is the state
-  },
   setCurrentFile (state, fileId) {
-    console.log("filtering", text)
     state.currentFile = state.files.filter(
       file => file.id == fileId
     )[0]
@@ -30,10 +27,9 @@ const mutations = {
     })
   },
   removeCurrentCharacter (state) {
-    let content = state.currentLineContent
-    console.log(content)
+    let content = state.currentFile.lines[state.currentLineNumber].content
 
-    state.currentLineContent =
+    state.currentFile.lines[state.currentLineNumber].content =
       content.slice(0, state.currentColumnNumber) +
       content.slice(state.currentColumnNumber + 1, content.length)
   },
@@ -68,9 +64,6 @@ const actions = {
 }
 
 const getters = {
-  files: state => {
-    return state.files
-  },
   currentFile: state => {
     return state.currentFile
   },
@@ -79,7 +72,9 @@ const getters = {
   },
   getCurrentLineContent: state => {
     return state.currentLineContent
-  }
+  },
+  getCurrentLineNumber: state => { return state.currentLineNumber } ,
+  getCurrentColumnNumber: state => { return state.currentColumnNumber }
 }
 
 export default new Vuex.Store({
