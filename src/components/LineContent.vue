@@ -1,15 +1,15 @@
 <template lang="html">
   <div class="line content">
-    <div :class="isCursor(index) + ' character'" v-for="(char, index) in charArray">{{ char }}</div>
+    <div :class="isCursor(index) + ' character'" v-for="(char, index) in getCurrentLineContent.split('')">{{ char }}</div>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   props: ['line'],
   created () {
-
+    const c = this.currentContent
   },
   data () {
     return {
@@ -17,10 +17,14 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'currentColumnNumber',
-      'currentLineNumber'
-    ])
+    ...mapGetters([
+      'getCurrentLineContent'
+    ]),
+    currentContent () {
+      if (this.currentLineNumber == this.line.id) {
+        return this.$store.state.currentFile.lines[this.line.id].content.split('')
+      }
+    }
   },
   methods: {
     getWhitespace () {

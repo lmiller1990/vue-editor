@@ -10,7 +10,8 @@ const state = {
   ],
   currentFile: { id: 0, lines: [] },
   currentLineNumber: 0,
-  currentColumnNumber: 1
+  currentColumnNumber: 1,
+  currentLineContent: ''
 }
 
 const mutations = {
@@ -27,6 +28,14 @@ const mutations = {
       id: state.currentFile.lines.length + 1,
       content: content
     })
+  },
+  removeCurrentCharacter (state) {
+    let content = state.currentLineContent
+    console.log(content)
+
+    state.currentLineContent =
+      content.slice(0, state.currentColumnNumber) +
+      content.slice(state.currentColumnNumber + 1, content.length)
   },
   setCurrentLine (state, lineNumber) {
     state.currentLineContent = state.currentFile.lines[lineNumber].content
@@ -65,8 +74,11 @@ const getters = {
   currentFile: state => {
     return state.currentFile
   },
-  currentLineContent: state => {
-    return state.currentFile.lines[state.currentLineNumber].content
+  currentLines: (state, getters) => {
+    return getters.currentFile.lines
+  },
+  getCurrentLineContent: state => {
+    return state.currentLineContent
   }
 }
 

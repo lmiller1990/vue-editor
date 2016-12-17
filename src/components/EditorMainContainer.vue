@@ -1,21 +1,22 @@
 <template lang="html">
   <div class="editor container">
-    <editor-line v-for="line in currentFileLines" :line="line"></editor-line>
+    <editor-line v-for="line in currentLines" :line="line"></editor-line>
   </div>
 </template>
 
 <script>
 import editorline   from './EditorLine.vue'
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     'editor-line': editorline
   },
   computed: {
-    currentFileLines () {
-      return this.$store.state.currentFile.lines
-    }
+    ...mapGetters([
+      'currentLines',
+      'currentLine'
+    ])
   }
 }
 </script>

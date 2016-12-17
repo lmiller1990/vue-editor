@@ -3,6 +3,11 @@
     Editor
     <editor-input></editor-input>
     <container></container>
+    <pre>
+      Line: {{ $store.state.currentLineNumber }}
+      Column: {{ $store.state.currentColumnNumber }}
+      Current Line {{ getCurrentLineContent }}
+    </pre>
   </div>
 </template>
 
@@ -24,6 +29,9 @@ export default {
   computed: {
     ...mapState([
       'currentFile'
+    ]),
+    ...mapGetters([
+      'getCurrentLineContent'
     ])
   },
   methods: {

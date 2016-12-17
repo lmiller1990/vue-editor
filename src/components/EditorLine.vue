@@ -18,11 +18,11 @@ export default {
   },
   computed: {
     ...mapState([
-      'currentLine'
+      'currentLineNumber'
     ]),
     isCurrentLine () {
-      // if (this.currentLine == this.line.id)
-      //   return { 'background-color': 'rgb(153, 204, 255)' }
+      if (this.currentLineNumber == this.line.id)
+        return { 'background-color': 'rgb(100, 100, 155)' }
     }
   },
   methods: {

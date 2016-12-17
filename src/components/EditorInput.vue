@@ -16,10 +16,11 @@ export default {
   },
   created () {
     this.setCurrentLine(0)
+    this.userInput = this.getCurrentLineContent
   },
   computed: {
     ...mapGetters([
-      'currentLineContent'
+      'getCurrentLineContent'
     ])
   },
   methods: {
@@ -45,12 +46,17 @@ export default {
       if (event.keyCode == 39) {
         this.changeColumn('right')
       }
+      if (event.keyCode == 8) {
+        // backspace
+        this.removeCurrentCharacter()
+      }
     },
     ...mapMutations([
       'addLine',
       'changeLine',
       'changeColumn',
-      'setCurrentLine'
+      'setCurrentLine',
+      'removeCurrentCharacter'
     ])
   }
 }
