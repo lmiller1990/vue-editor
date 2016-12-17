@@ -18,8 +18,8 @@ export default {
   },
   computed: {
     ...mapState([
-      'currentColumn',
-      'currentLine'
+      'currentColumnNumber',
+      'currentLineNumber'
     ])
   },
   methods: {
@@ -33,7 +33,7 @@ export default {
       return this.line.content.split('')
     },
     isCursor (index) {
-      if (index == this.currentColumn && this.currentLine == this.line.id)
+      if (index == this.currentColumnNumber && this.currentLineNumber == this.line.id)
         return 'cursor'
     }
   }

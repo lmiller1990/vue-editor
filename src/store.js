@@ -9,8 +9,8 @@ const state = {
     text
   ],
   currentFile: { id: 0, lines: [] },
-  currentLine: 1,
-  currentColumn: 1
+  currentLineNumber: 0,
+  currentColumnNumber: 1
 }
 
 const mutations = {
@@ -28,22 +28,25 @@ const mutations = {
       content: content
     })
   },
+  setCurrentLine (state, lineNumber) {
+    state.currentLineContent = state.currentFile.lines[lineNumber].content
+  },
   changeLine (state, direction) {
-    if (direction == 'down') {
-      if ((state.currentLine - 1) > 0)
-        state.currentLine--
+    if (direction == 'up') {
+      if (state.currentLineNumber > 0)
+        state.currentLineNumber--
     }
-    else if (direction == 'up') {
-      if (state.currentLine + 1 <= state.currentFile.lines.length)
-          state.currentLine++
+    else if (direction == 'down') {
+      if (state.currentLineNumber < state.currentFile.lines.length - 1)
+          state.currentLineNumber++
     }
   },
   changeColumn (state, direction) {
     if (direction == 'right') {
-      state.currentColumn++
+      state.currentColumnNumber++
     }
     else if (direction == 'left') {
-      state.currentColumn--
+      state.currentColumnNumber--
     }
   },
   updateCurrentFile (state, file) {
@@ -61,6 +64,9 @@ const getters = {
   },
   currentFile: state => {
     return state.currentFile
+  },
+  currentLineContent: state => {
+    return state.currentFile.lines[state.currentLineNumber].content
   }
 }
 

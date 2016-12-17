@@ -1,19 +1,26 @@
 <template lang="html">
   <div>
     <input type="text" v-model="userInput" v-on:keydown.prevent="update">
-
   </div>
 </template>
 
 <script>
 import { isPrintableKey } from '../utils/keyManager'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState, mapGetters } from 'vuex'
 
 export default {
   data () {
     return {
       userInput: ''
     }
+  },
+  created () {
+    this.setCurrentLine(0)
+  },
+  computed: {
+    ...mapGetters([
+      'currentLineContent'
+    ])
   },
   methods: {
     update (event) {
@@ -26,10 +33,10 @@ export default {
         console.log(this.userInput)
         this.addLine(this.userInput)
       }
-      if (event.keyCode == 38)  {
+      if (event.keyCode == 40)  {
         this.changeLine('down')
       }
-      if (event.keyCode == 40) {
+      if (event.keyCode == 38) {
         this.changeLine('up')
       }
       if (event.keyCode == 37)  {
@@ -42,7 +49,8 @@ export default {
     ...mapMutations([
       'addLine',
       'changeLine',
-      'changeColumn'
+      'changeColumn',
+      'setCurrentLine'
     ])
   }
 }

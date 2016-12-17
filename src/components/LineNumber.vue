@@ -1,7 +1,7 @@
 <template lang="html">
-  <div class="line number">
-    {{ lineNumber }}
-  </div>
+    <div class="character">
+      {{ lineNumber }}
+    </div>
 </template>
 
 <script>
@@ -11,7 +11,9 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.line.number {
-  flex-grow: 1;
+
+.character {
+  display: inline-block;
+  padding-right: 1em;
 }
 </style>
