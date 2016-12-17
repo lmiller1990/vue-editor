@@ -1,30 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import { text } from './assets/sampletext'
 
 Vue.use(Vuex)
 
 const state = {
-  files: [{
-    id: 1, title: 'My new file',
-    lines: [
-      {
-        id: 1,
-        content: 'New line'
-      },
-      {
-        id: 2,
-        content: 'Another new line'
-      }
-    ]
-  }],
+  files: [
+    text
+  ],
   currentFile: { id: 0, lines: [] },
-  currentLine: 1
+  currentLine: 1,
+  currentColumn: 1
 }
 
 const mutations = {
   addFile (state) { // first arg for mutations is the state
   },
   setCurrentFile (state, fileId) {
+    console.log("filtering", text)
     state.currentFile = state.files.filter(
       file => file.id == fileId
     )[0]
@@ -43,6 +36,14 @@ const mutations = {
     else if (direction == 'up') {
       if (state.currentLine + 1 <= state.currentFile.lines.length)
           state.currentLine++
+    }
+  },
+  changeColumn (state, direction) {
+    if (direction == 'right') {
+      state.currentColumn++
+    }
+    else if (direction == 'left') {
+      state.currentColumn--
     }
   },
   updateCurrentFile (state, file) {

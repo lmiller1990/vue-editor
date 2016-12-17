@@ -10,8 +10,8 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
 .line.number {
-  flex-grow: 1
+  flex-grow: 1;
 }
 </style>

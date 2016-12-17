@@ -15,3 +15,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+#app {
+  font-family: "Courier New", monospace;
+  font-size: 2em;
+}
+</style>

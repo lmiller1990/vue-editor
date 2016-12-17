@@ -21,8 +21,8 @@ export default {
       'currentLine'
     ]),
     isCurrentLine () {
-      if (this.currentLine == this.line.id)
-        return { 'background-color': 'blue' }
+      // if (this.currentLine == this.line.id)
+      //   return { 'background-color': 'rgb(153, 204, 255)' }
     }
   },
   methods: {
