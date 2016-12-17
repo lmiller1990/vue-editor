@@ -1,12 +1,21 @@
 <template lang="html">
   <div class="sidebar">
-    <div v-for="line in lines">{{ line.id }}</div>
+    <div v-for="line in currentFileLines">{{ line.id }}</div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-  props: ['lines']
+  computed: {
+    ...mapState([
+      'currentFile'
+    ]),
+    currentFileLines () {
+      return this.$store.state.currentFile.lines
+    }
+  }
 }
 </script>
 
@@ -14,5 +23,6 @@ export default {
 .sidebar {
   width: 50px;
   background-color: red;
+  display: inline-block;
 }
 </style>

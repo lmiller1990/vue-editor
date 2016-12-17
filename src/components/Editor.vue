@@ -2,20 +2,19 @@
   <div>
     Editor
     <editor-input></editor-input>
-    <sidebar :lines="currentFile.lines"></sidebar>
+    <container></container>
   </div>
 </template>
 
 <script>
-import editorline   from './EditorLine.vue'
-import sidebar      from './Sidebar.vue'
+import container    from './EditorMainContainer.vue'
 import editorinput  from './EditorInput.vue'
+
 import { mapGetters, mapState, mapMutations } from 'vuex'
 
 export default {
   components: {
-    editorline,
-    sidebar,
+    container,
     'editor-input': editorinput
   },
   created () {
