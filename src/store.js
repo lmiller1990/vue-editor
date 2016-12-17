@@ -33,6 +33,9 @@ const mutations = {
       content.slice(0, state.currentColumnNumber) +
       content.slice(state.currentColumnNumber + 1, content.length)
   },
+  moveCursorBackOneUnit (state) {
+    state.currentColumnNumber--;
+  },
   setCurrentLine (state, lineNumber) {
     state.currentLineContent = state.currentFile.lines[lineNumber].content
   },

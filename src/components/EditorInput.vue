@@ -49,6 +49,7 @@ export default {
       if (event.keyCode == 8) {
         // backspace
         this.removeCurrentCharacter()
+        this.moveCursorBackOneUnit()
       }
     },
     ...mapMutations([
@@ -56,7 +57,8 @@ export default {
       'changeLine',
       'changeColumn',
       'setCurrentLine',
-      'removeCurrentCharacter'
+      'removeCurrentCharacter',
+      'moveCursorBackOneUnit'
     ])
   }
 }
