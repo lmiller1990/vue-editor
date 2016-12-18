@@ -16,7 +16,7 @@
 import container    from './EditorMainContainer.vue'
 import editorinput  from './EditorInput.vue'
 
-import { mapGetters, mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 
 export default {
   components: {

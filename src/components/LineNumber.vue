@@ -1,17 +1,16 @@
 <template lang="html">
     <div class="character">
-      {{ lineNumber }}
+      {{ line.id }}
     </div>
 </template>
 
 <script>
 export default {
-  props: ['lineNumber']
+  props: ['line']
 }
 </script>
 
 <style lang="css" scoped>
-
 .character {
   display: inline-block;
   padding-right: 1em;

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="editor line container" :style="isCurrentLine">
-    <linenumber  :lineNumber="line.id"></linenumber>
+    <linenumber  :line="line"></linenumber>
     <linecontent :line="line"></linecontent>
   </div>
 </template>
@@ -23,11 +23,6 @@ export default {
     isCurrentLine () {
       if (this.currentLineNumber == this.line.id)
         return { 'background-color': 'rgb(100, 100, 155)' }
-    }
-  },
-  methods: {
-    breakBySpace () {
-      return this.line.content.split(" ")
     }
   }
 }
