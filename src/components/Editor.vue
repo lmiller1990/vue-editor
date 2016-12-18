@@ -25,6 +25,7 @@ export default {
   },
   created () {
     this.setCurrentFile(1)
+    console.log(this.$store.state.cursor.test)
   },
 
   computed: {

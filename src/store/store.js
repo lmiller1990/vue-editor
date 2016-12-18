@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { text } from './assets/sampletext'
+import { text } from '../assets/sampletext'
+import { cursorStore } from './cursor/store'
 
 Vue.use(Vuex)
 
@@ -73,5 +74,8 @@ export default new Vuex.Store({
   state,
   getters,
   actions,
-  mutations
+  mutations,
+  modules: {
+    cursor: cursorStore
+  }
 })
