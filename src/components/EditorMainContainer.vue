@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="editor container">
-    <editor-line v-for="line in currentLines" :line="line"></editor-line>
+    <editor-line v-for="line in getCurrentLines" :line="line"></editor-line>
   </div>
 </template>
 
@@ -14,8 +14,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentLines',
-      'currentLine'
+      'getCurrentLines'
     ])
   }
 }

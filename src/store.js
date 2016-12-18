@@ -10,8 +10,7 @@ const state = {
   ],
   currentFile: { id: 0, lines: [] },
   currentLineNumber: 0,
-  currentColumnNumber: 1,
-  currentLineContent: ''
+  currentColumnNumber: 0
 }
 
 const mutations = {
@@ -36,9 +35,6 @@ const mutations = {
   moveCursorBackOneUnit (state) {
     state.currentColumnNumber--;
   },
-  setCurrentLine (state, lineNumber) {
-    state.currentLineContent = state.currentFile.lines[lineNumber].content
-  },
   changeLine (state, direction) {
     if (direction == 'up') {
       if (state.currentLineNumber > 0)
@@ -59,9 +55,6 @@ const mutations = {
       if (state.currentColumnNumber - 1 >= 0)
         state.currentColumnNumber--
     }
-  },
-  updateCurrentFile (state, file) {
-    state.currentFile = file
   }
 }
 
@@ -70,15 +63,8 @@ const actions = {
 }
 
 const getters = {
-  currentFile: state => {
-    return state.currentFile
-  },
-  currentLines: (state, getters) => {
-    return getters.currentFile.lines
-  },
-  getCurrentLineContent: state => {
-    return state.currentLineContent
-  },
+  currentFile: state => { return state.currentFile },
+  getCurrentLines: (state, getters) => { return getters.currentFile.lines },
   getCurrentLineNumber: state => { return state.currentLineNumber } ,
   getCurrentColumnNumber: state => { return state.currentColumnNumber }
 }

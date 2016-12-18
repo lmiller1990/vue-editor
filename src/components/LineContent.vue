@@ -11,14 +11,8 @@ export default {
   created () {
     const c = this.currentContent
   },
-  data () {
-    return {
-      charArray: this.getLineAsCharArray()
-    }
-  },
   computed: {
     ...mapGetters([
-      'getCurrentLineContent',
       'getCurrentLineNumber',
       'getCurrentColumnNumber'
     ]),
@@ -29,15 +23,11 @@ export default {
     }
   },
   methods: {
-    getWhitespace () {
-      let content = this.line.content
-      let firstChar = content.match(/[a-zA-Z0-9$-/:-?{-~!"^_`\[\]]/).pop()
-      return content.substring(0, content.indexOf(firstChar))
-    },
-    getLineAsCharArray () {
-      let whitespace = this.getWhitespace()
-      return this.line.content.split('')
-    },
+    // getWhitespace () {
+    //   let content = this.line.content
+    //   let firstChar = content.match(/[a-zA-Z0-9$-/:-?{-~!"^_`\[\]]/).pop()
+    //   return content.substring(0, content.indexOf(firstChar))
+    // },
     isCursor (index) {
       if (index == this.getCurrentColumnNumber && this.getCurrentLineNumber == this.line.id)
         return 'cursor'

@@ -14,15 +14,6 @@ export default {
       userInput: ''
     }
   },
-  created () {
-    this.setCurrentLine(0)
-    this.userInput = this.getCurrentLineContent
-  },
-  computed: {
-    ...mapGetters([
-      'getCurrentLineContent'
-    ])
-  },
   methods: {
     update (event) {
       console.log(event)
@@ -56,7 +47,6 @@ export default {
       'addLine',
       'changeLine',
       'changeColumn',
-      'setCurrentLine',
       'removeCurrentCharacter',
       'moveCursorBackOneUnit'
     ])

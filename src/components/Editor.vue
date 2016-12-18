@@ -8,7 +8,6 @@
       <p>Line: {{ $store.state.currentLineNumber }}
         Length: {{ $store.state.currentFile.lines[$store.state.currentLineNumber].content.length }}</p>
       <p>Column: {{ $store.state.currentColumnNumber }}</p>
-      <p>Current Line {{ getCurrentLineContent }}</p>
     </div>
   </div>
 </template>
@@ -31,9 +30,6 @@ export default {
   computed: {
     ...mapState([
       'currentFile'
-    ]),
-    ...mapGetters([
-      'getCurrentLineContent'
     ])
   },
   methods: {
