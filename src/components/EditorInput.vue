@@ -39,7 +39,7 @@ export default {
       if (event.keyCode == 8) {
         // backspace
         this.removeCurrentCharacter()
-        this.moveCursorBackOneUnit()
+        this.moveLeft()
       }
     },
     ...mapMutations([

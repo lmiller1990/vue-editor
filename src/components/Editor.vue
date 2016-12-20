@@ -9,7 +9,7 @@
         Length: {{ $store.state.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p>
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
       <p>
-        Content: {{ $store.state.currentFile.lines[$store.state.cursor.currentLineNumber].content }}
+        Content: {{ getWorkingLineContent }}
       </p>
     </div>
   </div>
@@ -19,7 +19,7 @@
 import container    from './EditorMainContainer.vue'
 import editorinput  from './EditorInput.vue'
 
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -34,6 +34,9 @@ export default {
     ...mapState([
       'currentFile',
       'currentColumnNumber'
+    ]),
+    ...mapGetters([
+      'getWorkingLineContent'
     ])
   },
   methods: {

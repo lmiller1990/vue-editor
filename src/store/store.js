@@ -25,14 +25,11 @@ const mutations = {
     })
   },
   removeCurrentCharacter (state) {
-    let content = state.currentFile.lines[state.currentLineNumber].content
-
-    state.currentFile.lines[state.currentLineNumber].content =
-      content.slice(0, state.currentColumnNumber) +
-      content.slice(state.currentColumnNumber + 1, content.length)
-  },
-  moveCursorBackOneUnit (state) {
-    state.currentColumnNumber--;
+    let cursor = cursorStore.state
+    let content = state.currentFile.lines[cursor.currentLineNumber].content
+    state.currentFile.lines[cursor.currentLineNumber].content =
+      content.slice(0, cursor.currentColumnNumber) +
+      content.slice(cursor.currentColumnNumber + 1, content.length)
   }
 }
 
@@ -59,8 +56,9 @@ const actions = {
 const getters = {
   currentFile: state => { return state.currentFile },
   getCurrentLines: (state, getters) => { return getters.currentFile.lines },
-  getCurrentLineNumber: state => { return state.currentLineNumber } ,
-  getCurrentColumnNumber: state => { return state.currentColumnNumber }
+  getWorkingLineContent: (state, getters) => {
+    return getters.currentFile.lines[state.cursor.currentLineNumber].content
+  }
 }
 
 export default new Vuex.Store({

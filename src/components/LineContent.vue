@@ -1,7 +1,9 @@
 <template lang="html">
   <div class="line content">
-    <div :class="isCursor(index) + ' character'" v-for="(char, index) in $store.state.currentFile.lines[line.id].content.split('')">{{ char }}</div>
-  </div>
+    <div
+      v-for="(char, index) in getCurrentLines[line.id].content.split('')"
+      :class="isCursor(index) + ' character'">{{char}}</div>
+    </div>
 </template>
 
 <script>
@@ -10,16 +12,16 @@ export default {
   props: ['line'],
   computed: {
     ...mapGetters([
-      'getCurrentLineNumber',
-      'getCurrentColumnNumber'
+      'getWorkingLineContent',
+      'getCurrentLines'
     ]),
-    ...mapState([
-      'currentColumnNumber'
-    ])
+    ...mapState({
+      cursorX: state => state.cursor.currentColumnNumber
+    })
   },
   methods: {
     isCursor (index) {
-      if (index == this.$store.state.cursor.currentColumnNumber && this.$store.state.cursor.currentLineNumber == this.line.id)
+      if (index == this.cursorX && this.$store.state.cursor.currentLineNumber == this.line.id)
         return 'cursor'
     }
   }
@@ -37,6 +39,6 @@ export default {
 }
 
 .cursor {
-  background-color: rgb(153, 204, 255);
+  box-shadow: -2px 0px rgb(153, 204, 255);
 }
 </style>
