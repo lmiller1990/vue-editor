@@ -22,7 +22,6 @@ export default {
       }
       if (event.keyCode == 13) {
         // return key
-        console.log(this.userInput)
         this.addLine(this.userInput)
       }
       if (event.keyCode == 40)

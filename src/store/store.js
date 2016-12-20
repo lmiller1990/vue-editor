@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { text } from '../assets/sampletext'
-import { cursorStore } from './cursor/store'
+import { cursorStore } from './cursor/cursorStore'
 
 Vue.use(Vuex)
 
@@ -33,28 +33,7 @@ const mutations = {
   },
   moveCursorBackOneUnit (state) {
     state.currentColumnNumber--;
-  },
-  changeLine (state, direction) {
-    if (direction == 'up') {
-      if (state.currentLineNumber > 0)
-        state.currentLineNumber--
-    }
-    else if (direction == 'down') {
-      if (state.currentLineNumber < state.currentFile.lines.length - 1)
-          state.currentLineNumber++
-    }
   }
-  // changeColumn (state, direction) {
-  //   if (direction == 'right') {
-  //     console.log(state.currentFile.lines)
-  //     if (state.currentColumnNumber < state.currentFile.lines[state.currentLineNumber].content.length - 1)
-  //       state.currentColumnNumber++
-  //   }
-  //   else if (direction == 'left') {
-  //     if (state.currentColumnNumber - 1 >= 0)
-  //       state.currentColumnNumber--
-  //   }
-  // }
 }
 
 const actions = {
