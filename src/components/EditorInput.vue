@@ -6,7 +6,7 @@
 
 <script>
 import { isPrintableKey } from '../utils/keyManager'
-import { mapMutations, mapState, mapGetters } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 
 export default {
   data () {
@@ -25,18 +25,18 @@ export default {
         console.log(this.userInput)
         this.addLine(this.userInput)
       }
-      if (event.keyCode == 40)  {
-        this.changeLine('down')
-      }
+      if (event.keyCode == 40)
+        this.moveDown()
+
       if (event.keyCode == 38) {
-        this.changeLine('up')
+        this.moveUp()
       }
-      if (event.keyCode == 37)  {
-        this.changeColumn('left')
-      }
-      if (event.keyCode == 39) {
-        this.changeColumn('right')
-      }
+      if (event.keyCode == 37)
+        this.moveLeft()
+
+      if (event.keyCode == 39)
+        this.moveRight()
+
       if (event.keyCode == 8) {
         // backspace
         this.removeCurrentCharacter()
@@ -45,10 +45,14 @@ export default {
     },
     ...mapMutations([
       'addLine',
-      'changeLine',
-      'changeColumn',
       'removeCurrentCharacter',
       'moveCursorBackOneUnit'
+    ]),
+    ...mapActions([
+      'moveRight',
+      'moveLeft',
+      'moveUp',
+      'moveDown'
     ])
   }
 }

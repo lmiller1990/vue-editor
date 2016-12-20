@@ -5,9 +5,12 @@
     <container></container>
     <div class="debug">
       Debug:
-      <p>Line: {{ $store.state.currentLineNumber }}
-        Length: {{ $store.state.currentFile.lines[$store.state.currentLineNumber].content.length }}</p>
-      <p>Column: {{ $store.state.currentColumnNumber }}</p>
+      <p>Line: {{ $store.state.cursor.currentLineNumber }}
+        Length: {{ $store.state.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p>
+      <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
+      <p>
+        Content: {{ $store.state.currentFile.lines[$store.state.cursor.currentLineNumber].content }}
+      </p>
     </div>
   </div>
 </template>
@@ -25,12 +28,12 @@ export default {
   },
   created () {
     this.setCurrentFile(1)
-    console.log(this.$store.state.cursor.test)
   },
 
   computed: {
     ...mapState([
-      'currentFile'
+      'currentFile',
+      'currentColumnNumber'
     ])
   },
   methods: {

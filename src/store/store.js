@@ -9,9 +9,7 @@ const state = {
   files: [
     text
   ],
-  currentFile: { id: 0, lines: [] },
-  currentLineNumber: 0,
-  currentColumnNumber: 0
+  currentFile: { id: 0, lines: [] }
 }
 
 const mutations = {
@@ -45,22 +43,38 @@ const mutations = {
       if (state.currentLineNumber < state.currentFile.lines.length - 1)
           state.currentLineNumber++
     }
-  },
-  changeColumn (state, direction) {
-    if (direction == 'right') {
-      console.log(state.currentFile.lines)
-      if (state.currentColumnNumber < state.currentFile.lines[state.currentLineNumber].content.length - 1)
-        state.currentColumnNumber++
-    }
-    else if (direction == 'left') {
-      if (state.currentColumnNumber - 1 >= 0)
-        state.currentColumnNumber--
-    }
   }
+  // changeColumn (state, direction) {
+  //   if (direction == 'right') {
+  //     console.log(state.currentFile.lines)
+  //     if (state.currentColumnNumber < state.currentFile.lines[state.currentLineNumber].content.length - 1)
+  //       state.currentColumnNumber++
+  //   }
+  //   else if (direction == 'left') {
+  //     if (state.currentColumnNumber - 1 >= 0)
+  //       state.currentColumnNumber--
+  //   }
+  // }
 }
 
 const actions = {
-  // for async
+  moveRight ({commit, state}, payload) {
+    let cursorState = cursorStore.state
+    if (cursorState.currentColumnNumber < state.currentFile.lines[cursorState.currentLineNumber].content.length - 1)
+      commit('CHANGE_COLUMN', { direction: 'right'})
+  },
+  moveLeft ({commit}, payload) {
+    if (cursorStore.state.currentColumnNumber - 1 >= 0)
+      commit('CHANGE_COLUMN', { direction: 'left' })
+  },
+  moveDown ({commit, state}) {
+    if (cursorStore.state.currentLineNumber < state.currentFile.lines.length - 1)
+      commit('CHANGE_LINE', { direction: 'down' })
+  },
+  moveUp ({commit, state}) {
+    if (cursorStore.state.currentLineNumber > 0)
+      commit('CHANGE_LINE', { direction: 'up' })
+  }
 }
 
 const getters = {

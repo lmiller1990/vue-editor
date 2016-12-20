@@ -6,18 +6,21 @@ const cursorStore = {
   },
 
   mutations: {
-    changeColumn (state, direction) {
-      if (direction == 'right') {
-        if (state.currentColumnNumber < state.currentFile.lines[state.currentLineNumber].content.length - 1)
+    CHANGE_COLUMN (state, payload) {
+      if (payload.direction == 'right') {
           state.currentColumnNumber++
       }
-      else if (direction == 'left') {
-        if (state.currentColumnNumber - 1 >= 0)
+      else if (payload.direction == 'left') {
           state.currentColumnNumber--
       }
     },
-    test (state, payload) {
-      console.log(payload.message)
+    CHANGE_LINE (state, payload) {
+      if (payload.direction == 'down') {
+        state.currentLineNumber++
+      }
+      else if (payload.direction == 'up') {
+        state.currentLineNumber--
+      }
     }
   }
 }
