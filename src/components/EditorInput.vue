@@ -20,6 +20,7 @@ export default {
       if (isPrintableKey(event.keyCode)) {
         this.userInput += event.key
         this.appendCharacter(event.key)
+        this.moveRight()
       }
       if (event.keyCode == 13) {
         // return key
