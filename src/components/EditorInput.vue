@@ -19,6 +19,7 @@ export default {
       console.log(event)
       if (isPrintableKey(event.keyCode)) {
         this.userInput += event.key
+        this.appendCharacter(event.key)
       }
       if (event.keyCode == 13) {
         // return key
@@ -45,7 +46,8 @@ export default {
     ...mapMutations([
       'addLine',
       'removeCurrentCharacter',
-      'moveCursorBackOneUnit'
+      'moveCursorBackOneUnit',
+      'appendCharacter'
     ]),
     ...mapActions([
       'moveRight',

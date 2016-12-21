@@ -24,6 +24,9 @@ const mutations = {
       content: content
     })
   },
+  appendCharacter (state, character) {
+    state.currentFile.lines[cursorStore.state.currentLineNumber].content += character
+  },
   removeCurrentCharacter (state) {
     let cursor = cursorStore.state
     let content = state.currentFile.lines[cursor.currentLineNumber].content
