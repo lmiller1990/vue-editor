@@ -36,12 +36,13 @@ const mutations = {
       state.currentFile.lines[cursorStore.state.currentLineNumber]
         .content.slice(cursorStore.state.currentColumnNumber)
   },
-  removeCurrentCharacter (state) {
+  REMOVE_CURRENT_CHARACTER (state) {
     let cursor = cursorStore.state
     let content = state.currentFile.lines[cursor.currentLineNumber].content
+    let before = content.slice(0, cursor.currentColumnNumber - 1)
+    let after = content.slice(cursor.currentColumnNumber, content.length)
     state.currentFile.lines[cursor.currentLineNumber].content =
-      content.slice(0, cursor.currentColumnNumber) +
-      content.slice(cursor.currentColumnNumber + 1, content.length)
+      before + after
   },
   UPDATE_LINE_CONTENT (state, payload) {
     let whiteSpace = new Array(payload.lineStartIndex).join(' ')
@@ -68,20 +69,21 @@ const actions = {
     if (cursorStore.state.currentLineNumber > 0)
       commit('CHANGE_LINE', { direction: 'up' })
   },
+  removeCurrentCharacter ({commit, state}) {
+    if (cursorStore.state.currentColumnNumber > 0)
+      commit('REMOVE_CURRENT_CHARACTER')
+  },
   addLineBreak(context) {
     let workingLine = context.getters.getWorkingLineContent
     let beforeCursor = workingLine.slice(0, cursorStore.state.currentColumnNumber)
     let afterCursor = workingLine.slice(cursorStore.state.currentColumnNumber)
-    console.log(beforeCursor)
     context.commit('INSERT_LINE', { lineIndexToInsertAt: cursorStore.state.currentLineNumber, content: beforeCursor })
     context.commit('CHANGE_LINE', { direction: 'down' })
-    console.log(afterCursor)
     context.commit('UPDATE_LINE_CONTENT', {
       lineNumber: cursorStore.state.currentLineNumber,
       content: afterCursor,
-      lineStartIndex: cursorStore.state.currentColumnNumber + 1 
+      lineStartIndex: cursorStore.state.currentColumnNumber + 1
     })
-
   }
 }
 

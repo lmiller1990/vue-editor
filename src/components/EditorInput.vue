@@ -46,8 +46,6 @@ export default {
     },
     ...mapMutations([
       'addLine',
-      'removeCurrentCharacter',
-      'moveCursorBackOneUnit',
       'appendCharacter'
     ]),
     ...mapActions([
@@ -55,7 +53,8 @@ export default {
       'moveLeft',
       'moveUp',
       'moveDown',
-      'addLineBreak'
+      'addLineBreak',
+      'removeCurrentCharacter'
     ])
   }
 }
