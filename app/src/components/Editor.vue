@@ -1,16 +1,19 @@
 <template lang="html">
   <div>
-    Editor
+    <button id="loadFile" @click="load">Load File</button>
     <input type="file" name="files[]" id="files" v-on:change="filesSelected" multiple>
     <editor-input></editor-input>
     <container></container>
     <div class="debug">
       Debug:
-      <p>Line: {{ $store.state.cursor.currentLineNumber }}
-        Length: {{ $store.state.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p>
+      <p>Current File: {{ $store.getters.getCurrentFile }}
+
+        <!-- Length: {{ $store.state.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p> -->
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
-      <p>
-        Content: {{ getWorkingLineContent }}
+
+      <p>Line: {{ $store.state.cursor.currentLineNumber }}</p>
+        <!-- Content: {{ getWorkingLineContent }} -->
+        <!-- Loaded Files: {{ $store.state.file.files }} -->
       </p>
     </div>
   </div>
@@ -32,11 +35,10 @@ export default {
     'editor-input': editorinput
   },
   created() {
-    this.setCurrentFile(1)
     // this.readTextFileAsync('app/src/Components/Test.vue')
     //   .then(function (val) {
     //   })
-    this.$store.dispatch('addFile', { file: 'app/src/Components/Test.vue' })
+
   },
 
   computed: {
@@ -52,6 +54,9 @@ export default {
     ...mapMutations([
       'setCurrentFile'
     ]),
+    load () {
+      this.$store.dispatch('addFile', { file: 'app/src/Components/Test.vue' })
+    },
     filesSelected(evt) {
       let input = evt.target
 

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="editor container">
-    <editor-line v-for="line in getCurrentLines" :line="line"></editor-line>
+    <editor-line v-for="line in getCurrentLinesFS" :line="line"></editor-line>
   </div>
 </template>
 
@@ -9,12 +9,15 @@ import editorline   from './EditorLine.vue'
 import { mapGetters } from 'vuex'
 
 export default {
+  created () {
+    console.log(this.getCurrentLinesFS)
+  },
   components: {
     'editor-line': editorline
   },
   computed: {
     ...mapGetters([
-      'getCurrentLines'
+      'getCurrentLinesFS'
     ])
   }
 }

@@ -7,18 +7,9 @@ import { fileStore } from './file/fileStore'
 Vue.use(Vuex)
 
 const state = {
-  files: [
-    text
-  ],
-  currentFile: { id: 0, lines: [] }
 }
 
 const mutations = {
-  setCurrentFile (state, fileId) {
-    state.currentFile = state.files.filter(
-      file => file.id == fileId
-    )[0]
-  },
   INSERT_LINE (state, payload) {
     let currentLines = state.currentFile.lines
     for (let line in currentLines) {
@@ -39,15 +30,15 @@ const mutations = {
   },
   REMOVE_CURRENT_CHARACTER (state) {
     let cursor = cursorStore.state
-    let content = state.currentFile.lines[cursor.currentLineNumber].content
+    let content = state.file.currentFile.lines[cursor.currentLineNumber].content
     let before = content.slice(0, cursor.currentColumnNumber - 1)
     let after = content.slice(cursor.currentColumnNumber, content.length)
-    state.currentFile.lines[cursor.currentLineNumber].content =
+    state.file.currentFile.lines[cursor.currentLineNumber].content =
       before + after
   },
   UPDATE_LINE_CONTENT (state, payload) {
     let whiteSpace = new Array(payload.lineStartIndex).join(' ')
-    state.currentFile.lines[payload.lineNumber].content =
+    state.file.currentFile.lines[payload.lineNumber].content =
       whiteSpace + payload.content
   }
 }
@@ -89,10 +80,10 @@ const actions = {
 }
 
 const getters = {
-  currentFile: state => { return state.currentFile },
+  getCurrentFile: state => { return state.file.currentFile },
   getCurrentLines: (state, getters) => { return getters.currentFile.lines },
   getWorkingLineContent: (state, getters) => {
-    return getters.currentFile.lines[state.cursor.currentLineNumber].content
+    return state.file.currentFile.lines[state.cursor.currentLineNumber].content
   }
 }
 

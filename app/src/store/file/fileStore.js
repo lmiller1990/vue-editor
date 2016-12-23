@@ -1,33 +1,39 @@
+import { processFile, loadFile } from '../../utils/fileMapper'
+
 const fileStore = {
   state: {
-    files: []
+    files: [],
+    currentFile: null
   },
 
   mutations: {
     ADD_FILE (state, payload) {
-      state.files.push(payload.file)
+      return new Promise(function (resolve, reject) {
+        console.log("Pushing", payload.file)
+        state.files.push(payload.file)
+        resolve()
+      })
+
+    },
+    SET_CURRENT_FILE (state, payload) {
+      console.log("Setting to:", state.files[0])
+      state.currentFile = state.files
     }
   },
 
   actions: {
     addFile ({commit, state, dispatch}, payload) {
-      console.log(payload)
-      dispatch('loadFile', { file: payload.file } ).then((res) => {
-        console.log("Loaded!",res)
-      })
-    },
-    loadFile (context, payload) {
-      console.log(`Loading ${payload.file}`)
-      return new Promise(function (resolve, reject) {
-        var rawFile = new XMLHttpRequest();
-        rawFile.open("GET", payload.file, false);
-        rawFile.onreadystatechange = function () {
-          if (rawFile.status === 200 || rawFile.status == 0) {
-            resolve(rawFile.responseText)
-          }
-        }
-        rawFile.send()
-      })
+      loadFile({ file: payload.file }).then((res) =>
+      processFile({ lines: res })).then ((res) =>
+      commit('ADD_FILE', { file: res })).then ((res) =>
+      commit('SET_CURRENT_FILE', { id: 0 }))
+    }
+  },
+  getters: {
+    getCurrentLinesFS (state, getters) {
+      if (state.files[0] != null) {
+        return state.files[0].lines
+      }
     }
   }
 }
