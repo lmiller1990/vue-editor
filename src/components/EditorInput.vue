@@ -24,7 +24,7 @@ export default {
       }
       if (event.keyCode == 13) {
         // return key
-        this.addLine(this.userInput)
+        this.addLineBreak()
       }
       if (event.keyCode == 40)
         this.moveDown()
@@ -54,7 +54,8 @@ export default {
       'moveRight',
       'moveLeft',
       'moveUp',
-      'moveDown'
+      'moveDown',
+      'addLineBreak'
     ])
   }
 }

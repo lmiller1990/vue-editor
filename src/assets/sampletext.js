@@ -5,31 +5,31 @@ const text = {
   lines: [
     {
       id: 0,
-      content: 'function newFunction () {'
+      content: 'function newFunction () {    '
     },
     {
       id: 1,
-      content: '  let counter = 0'
+      content: '  let counter = 0            '
     },
     {
       id: 2,
-      content: '  if (someCondition == 1) {'
+      content: '  if (someCondition == 1) {  '
     },
     {
       id: 3,
-      content: '    do stuff'
+      content: '    do stuff                 '
     },
     {
       id: 4,
-      content: '  }'
+      content: '  }                          '
     },
     {
       id: 5,
-      content: '  return counter'
+      content: '  return counter             '
     },
     {
       id: 6,
-      content: '}'
+      content: '}                            '
     }
   ]
 }
