@@ -8,7 +8,7 @@
       Debug:
       <p>Current File: {{ $store.getters.getCurrentFile }}
 
-        <!-- Length: {{ $store.state.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p> -->
+        <!-- Length: {{ $store.state.file.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p> -->
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
 
       <p>Line: {{ $store.state.cursor.currentLineNumber }}</p>
@@ -34,13 +34,6 @@ export default {
     container,
     'editor-input': editorinput
   },
-  created() {
-    // this.readTextFileAsync('app/src/Components/Test.vue')
-    //   .then(function (val) {
-    //   })
-
-  },
-
   computed: {
     ...mapState([
       'currentFile',

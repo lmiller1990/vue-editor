@@ -46,7 +46,7 @@ const mutations = {
 const actions = {
   moveRight ({commit, state}, payload) {
     let cursorState = cursorStore.state
-    if (cursorState.currentColumnNumber < state.currentFile.lines[cursorState.currentLineNumber].content.length - 1)
+    if (cursorState.currentColumnNumber < fileStore.state.currentFile.lines[cursorState.currentLineNumber].content.length - 1)
       commit('CHANGE_COLUMN', { direction: 'right'})
   },
   moveLeft ({commit}, payload) {
@@ -54,7 +54,7 @@ const actions = {
       commit('CHANGE_COLUMN', { direction: 'left' })
   },
   moveDown ({commit, state}) {
-    if (cursorStore.state.currentLineNumber < state.currentFile.lines.length - 1)
+    if (cursorStore.state.currentLineNumber < fileStore.state.currentFile.lines.length - 1)
       commit('CHANGE_LINE', { direction: 'down' })
   },
   moveUp ({commit, state}) {

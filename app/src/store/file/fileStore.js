@@ -16,8 +16,7 @@ const fileStore = {
 
     },
     SET_CURRENT_FILE (state, payload) {
-      console.log("Setting to:", state.files[0])
-      state.currentFile = state.files
+      state.currentFile = state.files[0]
     }
   },
 
