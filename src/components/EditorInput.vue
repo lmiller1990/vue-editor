@@ -55,9 +55,6 @@ export default {
       'moveDown',
       'addLineBreak',
       'removeCurrentCharacter'
-
-
-      
     ])
   }
 }
