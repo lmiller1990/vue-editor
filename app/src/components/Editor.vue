@@ -6,13 +6,13 @@
     <container></container>
     <div class="debug">
       Debug:
-      <p>Current File: {{ $store.getters.getCurrentFile }}
+      <!-- <p>Current File: {{ $store.getters.getCurrentFile }} -->
 
         <!-- Length: {{ $store.state.file.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p> -->
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
 
       <p>Line: {{ $store.state.cursor.currentLineNumber }}</p>
-        <!-- Content: {{ getWorkingLineContent }} -->
+        Content: {{ getWorkingLineContent }}
         <!-- Loaded Files: {{ $store.state.file.files }} -->
       </p>
     </div>

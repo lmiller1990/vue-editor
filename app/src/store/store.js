@@ -11,7 +11,7 @@ const state = {
 
 const mutations = {
   INSERT_LINE (state, payload) {
-    let currentLines = state.currentFile.lines
+    let currentLines = state.file.currentFile.lines
     for (let line in currentLines) {
       if (currentLines[line].id >= payload.lineIndexToInsertAt)
         currentLines[line].id++
@@ -83,7 +83,8 @@ const getters = {
   getCurrentFile: state => { return state.file.currentFile },
   getCurrentLines: (state, getters) => { return getters.currentFile.lines },
   getWorkingLineContent: (state, getters) => {
-    return state.file.currentFile.lines[state.cursor.currentLineNumber].content
+    if (state.file.currentFile)
+      return state.file.currentFile.lines[state.cursor.currentLineNumber].content
   }
 }
 
