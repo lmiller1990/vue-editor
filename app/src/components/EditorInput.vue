@@ -19,7 +19,7 @@ export default {
       console.log(event)
       if (isPrintableKey(event.keyCode)) {
         this.userInput += event.key
-        this.appendCharacter(event.key)
+        this.appendCharacter( { character: event.key })
         this.moveRight()
       }
       if (event.keyCode == 13) {
@@ -44,17 +44,14 @@ export default {
         this.moveLeft()
       }
     },
-    ...mapMutations([
-      'addLine',
-      'appendCharacter'
-    ]),
     ...mapActions([
       'moveRight',
       'moveLeft',
       'moveUp',
       'moveDown',
       'addLineBreak',
-      'removeCurrentCharacter'
+      'removeCurrentCharacter',
+      'appendCharacter'
     ])
   }
 }

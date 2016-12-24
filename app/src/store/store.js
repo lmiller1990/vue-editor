@@ -10,40 +10,15 @@ const state = {
 }
 
 const mutations = {
-  INSERT_LINE (state, payload) {
-    let currentLines = state.file.currentFile.lines
-    for (let line in currentLines) {
-      if (currentLines[line].id >= payload.lineIndexToInsertAt)
-        currentLines[line].id++
-    }
-    currentLines.splice(payload.lineIndexToInsertAt , 0, {
-      id: payload.lineIndexToInsertAt, content: payload.content })
-  },
-  appendCharacter (state, character) {
-    state.currentFile.lines[cursorStore.state.currentLineNumber]
-      .content =
-    state.currentFile.lines[cursorStore.state.currentLineNumber]
-      .content.slice(0, cursorStore.state.currentColumnNumber)
-      + character +
-      state.currentFile.lines[cursorStore.state.currentLineNumber]
-        .content.slice(cursorStore.state.currentColumnNumber)
-  },
-  REMOVE_CURRENT_CHARACTER (state) {
-    let cursor = cursorStore.state
-    let content = state.file.currentFile.lines[cursor.currentLineNumber].content
-    let before = content.slice(0, cursor.currentColumnNumber - 1)
-    let after = content.slice(cursor.currentColumnNumber, content.length)
-    state.file.currentFile.lines[cursor.currentLineNumber].content =
-      before + after
-  },
-  UPDATE_LINE_CONTENT (state, payload) {
-    let whiteSpace = new Array(payload.lineStartIndex).join(' ')
-    state.file.currentFile.lines[payload.lineNumber].content =
-      whiteSpace + payload.content
-  }
 }
 
 const actions = {
+  appendCharacter ({commit, state}, payload) {
+    commit('APPEND_CHARACTER', {
+      character: payload.character,
+      x: cursorStore.state.currentColumnNumber,
+      y: cursorStore.state.currentLineNumber })
+  },
   moveRight ({commit, state}, payload) {
     let cursorState = cursorStore.state
     if (cursorState.currentColumnNumber < fileStore.state.currentFile.lines[cursorState.currentLineNumber].content.length - 1)
@@ -63,7 +38,7 @@ const actions = {
   },
   removeCurrentCharacter ({commit, state}) {
     if (cursorStore.state.currentColumnNumber > 0)
-      commit('REMOVE_CURRENT_CHARACTER')
+      commit('REMOVE_CURRENT_CHARACTER', { x: cursorStore.state.currentColumnNumber, y: cursorStore.state.currentLineNumber })
   },
   addLineBreak(context) {
     let workingLine = context.getters.getWorkingLineContent
