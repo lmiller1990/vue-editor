@@ -3,7 +3,7 @@ function isModifier (keyCode) {
     return 'newline'
 }
 
-function isPrintableKey (keyCode) {
+function isPrintableKey (keyCode, meta, ctrl) {
   var valid =
     (keyCode > 47 && keyCode < 58)   || // number keys
     keyCode == 32                    || // spacebar & return key(s)
@@ -11,8 +11,8 @@ function isPrintableKey (keyCode) {
     (keyCode > 95 && keyCode < 112)  || // numpad keys
     (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
     (keyCode > 218 && keyCode < 223);   // [\]' (in order)
-
-    return valid;
+    
+    return (valid && !meta && !ctrl)
 }
 
 export { isModifier, isPrintableKey }

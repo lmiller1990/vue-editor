@@ -1,6 +1,7 @@
 <template lang="html">
   <div>
     <TabsContainer></TabsContainer>
+    <br>
     <button id="loadFile" @click="load">Load File</button>
     <button id="saveFile" @click="save">Save File</button>
 

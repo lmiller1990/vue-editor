@@ -27,7 +27,7 @@ export default {
   display: inline-block;
   font-family: "Courier New", monospace;
   font-size: 1em;
-  margin-right: 0.5em;
+  margin-right: 1em;
 }
 
 

@@ -1,6 +1,7 @@
 <template lang="html">
   <div>
-    <input type="text" v-model="userInput" v-on:keydown.prevent="update">
+    <input type="text" v-model="userInput" v-on:keydown.prevent="update" v-on:keyup.prevent="updateKeyup">
+    {{ metaKeyDown }} {{ ctrlKeyDown }}
   </div>
 </template>
 
@@ -11,12 +12,17 @@ import { mapMutations, mapActions } from 'vuex'
 export default {
   data () {
     return {
-      userInput: ''
+      userInput: '',
+      metaKeyDown: false,
+      ctrlKeyDown: false
     }
   },
   methods: {
     update (event) {
-      if (isPrintableKey(event.keyCode)) {
+      if (event.keyCode == 91) this.metaKeyDown = true
+      if (event.keyCode == 17) this.ctrlKeyDown = true
+
+      if (isPrintableKey(event.keyCode, this.metaKeyDown, this.ctrlKeyDown)) {
         this.appendCharacter( { character: event.key })
         this.moveRight()
       }
@@ -41,6 +47,11 @@ export default {
         this.removeCurrentCharacter()
         this.moveLeft()
       }
+    },
+    updateKeyup (event) {
+      console.log(event)
+      if (event.keyCode == 17) this.ctrlKeyDown = false
+      if (event.keyCode == 91) this.metaKeyDown = false
     },
     ...mapActions([
       'moveRight',
