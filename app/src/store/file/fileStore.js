@@ -18,12 +18,16 @@ const fileStore = {
         if (payload.id != state.files[f].id) {
         console.log(`Comparing ${state.files[f].name} with order ${state.files[f].order}`)
         console.log(`To ${payload.name} with order ${payload.order}`)
-        if (state.files[f].order < payload.order)
-          state.files[f].order++
+          if (state.files[f].order < payload.order){
+            console.log(`Increasing order by 1`)
+            state.files[f].order++
+          }
+        } else {
+          state.files[f].order = 0
         }
       }
       state.currentFile = state.files[payload.id]
-      state.currentFile.order = 0
+      // state.currentFile.order = 0
     },
     INSERT_LINE (state, payload) {
       let currentLines = state.currentFile.lines
