@@ -59,8 +59,22 @@ app.on('activate', () => {
 })
 
 const ipc = require('electron').ipcMain
+const fs = require('fs')
 
-ipc.on('asynchronous-message', function (event, arg) {
-  console.log("Got async msg.")
-  event.sender.send('asynchronous-reply', 'pong')
+ipc.on('loadFile', function (event, arg) {
+  fs.readFile('app/src/components/Test.vue', 'utf-8', function (err, data) {
+    if (err) throw err
+    event.sender.send('fileLoaded', data)
+  })
+})
+
+ipc.on('saveFile', function (event, arg) {
+  let content = arg.map(function (elem) {
+    return elem.content
+  }).join("\n")
+
+  fs.writeFile('write.vue', content, function (err) {
+    if (err) throw err
+    console.log("Saved file")
+  })
 })

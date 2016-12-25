@@ -1,6 +1,7 @@
 <template lang="html">
   <div>
     <button id="loadFile" @click="load">Load File</button>
+    <button id="saveFile" @click="save">Save File</button>
 
     <!-- <input type="file" name="files[]" id="files" v-on:change="filesSelected" multiple> -->
     <editor-input></editor-input>
@@ -19,12 +20,9 @@
 <script>
 import container from './EditorMainContainer.vue'
 import editorinput from './EditorInput.vue'
+import { ipc } from 'electron'
 
-import {
-  mapState,
-  mapMutations,
-  mapGetters
-} from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -32,20 +30,13 @@ export default {
     'editor-input': editorinput
   },
   created () {
-    console.log(this.$electron)
-    const ipc = this.$electron.ipcRenderer
-    ipc.send('asynchronous-message', 'ping')
 
-    ipc.on('asynchronous-reply', function (event, arg) {
-      const message = `Asynchronous message reply: ${arg}`
-      console.log(message)
-    })
   },
   computed: {
-    ...mapState([
-      'currentFile',
-      'currentColumnNumber'
-    ]),
+    ...mapState({
+      currentFile: state => state.file.currentFile,
+      currentColumnNumber: state => state.cursor.currentColumnNumber
+    }),
     ...mapGetters([
       'getWorkingLineContent'
     ])
@@ -54,8 +45,21 @@ export default {
     ...mapMutations([
       'setCurrentFile'
     ]),
+    save () {
+      const self = this
+      const ipc = this.$electron.ipcRenderer
+      console.log("Sending saveFile message")
+      console.log(self.currentFile.lines)
+      ipc.send('saveFile', self.currentFile.lines)
+    },
     load () {
-      this.$store.dispatch('addFile', { file: '/app/src/components/Test.vue' })
+      const self = this
+      const ipc = this.$electron.ipcRenderer
+      ipc.send('loadFile', 'Test.vue')
+
+      ipc.on('fileLoaded', function (event, arg) {
+        self.$store.dispatch('addFile', { lines: arg })
+      })
     }
   }
 }
