@@ -5,7 +5,6 @@
     <button id="loadFile" @click="load">Load File</button>
     <button id="saveFile" @click="save">Save File</button>
 
-
     <editor-input></editor-input>
     <container></container>
     <div class="debug">

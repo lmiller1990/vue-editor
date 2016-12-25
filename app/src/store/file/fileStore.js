@@ -13,7 +13,17 @@ const fileStore = {
       state.files.push(payload.file)
     },
     SET_CURRENT_FILE (state, payload) {
+
+      for (let f in state.files) {
+        if (payload.id != state.files[f].id) {
+        console.log(`Comparing ${state.files[f].name} with order ${state.files[f].order}`)
+        console.log(`To ${payload.name} with order ${payload.order}`)
+        if (state.files[f].order < payload.order)
+          state.files[f].order++
+        }
+      }
       state.currentFile = state.files[payload.id]
+      state.currentFile.order = 0
     },
     INSERT_LINE (state, payload) {
       let currentLines = state.currentFile.lines
@@ -64,10 +74,15 @@ const fileStore = {
     }
   },
   getters: {
+
     getCurrentLines (state, getters) {
       if (state.currentFile) {
         return state.currentFile.lines
       }
+    },
+    getOrdered (state) {
+      console.log('getting')
+      return state.files.sort(function (a,b) { return a.order - b.order} )
     }
   }
 }

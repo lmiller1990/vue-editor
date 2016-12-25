@@ -1,6 +1,6 @@
 function processFile (payload) {
-    // do stuff
     let file = {
+      order: payload.id,
       name: payload.path.split('/').pop(),
       path: payload.path,
       id: payload.id,

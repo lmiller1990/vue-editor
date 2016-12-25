@@ -1,22 +1,25 @@
 <template lang="html">
 <span>
-  <div class="tab" v-for="file in getBufferedFiles" @click="setActiveTab(file)">
-    {{ file.name }}
+  <div class="tab" v-for="file in getOrdered" @click="setActiveTab(file)">
+    {{ file.order }}{{ file.name }}
   </div>
 </span>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapState({
       getBufferedFiles: state => state.file.files
-    })
+    }),
+    ...mapGetters([
+      'getOrdered'
+    ])
   },
   methods: {
     setActiveTab (file) {
-      this.$store.commit('SET_CURRENT_FILE', { id: file.id })
+      this.$store.commit('SET_CURRENT_FILE', { id: file.id, order: file.order, name: file.name })
     }
   }
 }

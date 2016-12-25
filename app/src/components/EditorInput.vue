@@ -1,7 +1,6 @@
 <template lang="html">
   <div>
     <input type="text" v-model="userInput" v-on:keydown.prevent="update" v-on:keyup.prevent="updateKeyup">
-    {{ metaKeyDown }} {{ ctrlKeyDown }}
   </div>
 </template>
 
