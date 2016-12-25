@@ -17,6 +17,7 @@ export default {
   methods: {
     setActiveTab (file) {
       console.log(`Setting active file: ${file.id} ${file.name}`)
+      this.$store.commit('SET_CURRENT_FILE', { id: file.id })
     }
   }
 }

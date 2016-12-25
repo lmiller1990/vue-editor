@@ -66,7 +66,6 @@ const actions = {
 }
 
 const getters = {
-  getCurrentLines: (state, getters) => { return getters.currentFile.lines },
   getWorkingLineContent: (state, getters) => {
     if (state.file.currentFile)
       return state.file.currentFile.lines[state.cursor.currentLineNumber].content

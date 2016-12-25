@@ -13,7 +13,7 @@ const fileStore = {
       state.files.push(payload.file)
     },
     SET_CURRENT_FILE (state, payload) {
-      state.currentFile = state.files[0]
+      state.currentFile = state.files[payload.id]
     },
     INSERT_LINE (state, payload) {
       let currentLines = state.currentFile.lines
@@ -52,7 +52,7 @@ const fileStore = {
         lines: payload.lines
       })
       commit('ADD_FILE', { file: processedFile })
-      commit('SET_CURRENT_FILE', { id: 0 })
+      // commit('SET_CURRENT_FILE', { id: 0 })
     },
     addFileToBuffer ({commit, state}, payload) {
       let processedFile = processFile({
@@ -64,14 +64,10 @@ const fileStore = {
     }
   },
   getters: {
-    getCurrentLinesFS (state, getters) {
-      if (state.files[0] != null) {
-        return state.files[0].lines
+    getCurrentLines (state, getters) {
+      if (state.currentFile) {
+        return state.currentFile.lines
       }
-    },
-    getCurrentFile (state) {
-      if (state.currentFile)
-        return state.currentFile
     }
   }
 }

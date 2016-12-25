@@ -9,9 +9,16 @@ function processFile (payload) {
     let lines = payload.lines.split("\n")
 
     lines.forEach((value, index) =>
-      file.lines.push({id: index, content: value}))
+      file.lines.push({id: index, content: addWhitespaceTilEndOfLine(value)  }))
 
     return file
 }
 
+function addWhitespaceTilEndOfLine (content) {
+  let lineLength = 80
+  while (content.length < lineLength) {
+    content += ' '
+  }
+  return content
+}
 export { processFile }

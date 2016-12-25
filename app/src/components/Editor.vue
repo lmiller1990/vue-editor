@@ -8,12 +8,10 @@
     <editor-input></editor-input>
     <container></container>
     <div class="debug">
-      Debug:
+      Debug Information:
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
-
       <p>Line: {{ $store.state.cursor.currentLineNumber }}</p>
-        Content: {{ getWorkingLineContent }}
-      </p>
+      Current File: <p v-if="$store.state.file.currentFile"> {{ $store.state.file.currentFile.name }}</p>
     </div>
   </div>
 </template>

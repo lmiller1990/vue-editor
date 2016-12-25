@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="line content">
     <div
-      v-for="(char, index) in getCurrentLinesFS[line.id].content.split('')"
+      v-for="(char, index) in getCurrentLines[line.id].content.split('')"
       :class="isCursor(index) + ' character'">{{char}}</div>
     </div>
 </template>
@@ -12,11 +12,10 @@ export default {
   props: ['line'],
   computed: {
     ...mapGetters([
-      'getCurrentLinesFS'
+      'getCurrentLines'
     ]),
     ...mapState({
       cursorX: state => state.cursor.currentColumnNumber,
-      // getCurrentLines: state => state.file.files[0].lines
     })
   },
   methods: {
