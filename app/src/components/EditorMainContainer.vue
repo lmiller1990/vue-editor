@@ -24,5 +24,8 @@ export default {
 </script>
 
 <style lang="css" scoped>
-
+.editor.container {
+  font-family: "Courier New", monospace;
+  font-size: 1em;
+}
 </style>

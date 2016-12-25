@@ -17,8 +17,4 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: "Courier New", monospace;
-  font-size: 2em;
-}
 </style>

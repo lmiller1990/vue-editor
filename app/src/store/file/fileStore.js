@@ -3,11 +3,13 @@ import { processFile } from '../../utils/fileMapper'
 const fileStore = {
   state: {
     files: [],
+    fileCount: 0,
     currentFile: null
   },
 
   mutations: {
     ADD_FILE (state, payload) {
+      state.fileCount++
       state.files.push(payload.file)
     },
     SET_CURRENT_FILE (state, payload) {
@@ -45,13 +47,20 @@ const fileStore = {
   actions: {
     addFile ({commit, state, dispatch}, payload) {
       let processedFile = processFile({
+        id: state.file.fileCount,
         path: payload.path,
         lines: payload.lines
       })
       commit('ADD_FILE', { file: processedFile })
       commit('SET_CURRENT_FILE', { id: 0 })
-
-      console.log(state.currentFile)
+    },
+    addFileToBuffer ({commit, state}, payload) {
+      let processedFile = processFile({
+        id: state.fileCount,
+        path: payload.path,
+        lines: payload.lines
+      })
+      commit('ADD_FILE', { file: processedFile })
     }
   },
   getters: {

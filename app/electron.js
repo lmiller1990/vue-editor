@@ -58,6 +58,8 @@ app.on('activate', () => {
   }
 })
 
+/* TODO: loading files - eventually refactor somewhere else? */
+
 const ipc = require('electron').ipcMain
 const fs = require('fs')
 
@@ -66,6 +68,16 @@ ipc.on('loadFile', function (event, arg) {
     if (err) throw err
     event.sender.send('fileLoaded', data)
   })
+})
+
+ipc.on('loadFiles', function (event, files) {
+  for (let file in files) {
+    console.log(`Reading: ${files[file]}`)
+    fs.readFile(files[file], 'utf-8', function (err, data) {
+      if (err) throw err
+      event.sender.send('fileLoaded', { path: files[file], lines: data })
+    })
+  }
 })
 
 ipc.on('saveFile', function (event, arg) {

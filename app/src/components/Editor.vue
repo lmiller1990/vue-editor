@@ -1,7 +1,9 @@
 <template lang="html">
   <div>
+    <TabsContainer></TabsContainer>
     <button id="loadFile" @click="load">Load File</button>
     <button id="saveFile" @click="save">Save File</button>
+
 
     <editor-input></editor-input>
     <container></container>
@@ -20,22 +22,32 @@
 import container from './EditorMainContainer.vue'
 import editorinput from './EditorInput.vue'
 import { ipc, remote } from 'electron'
-
+import TabsContainer from './TabsContainer'
 
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
     container,
-    'editor-input': editorinput
+    'editor-input': editorinput,
+    TabsContainer
   },
   created () {
-
+    const self = this
+    let ipc = this.$electron.ipcRenderer
+    ipc.on('fileLoaded', function (event, file) {
+      console.log(`Adding: ${file.path.split("/").pop()}`)
+      self.$store.dispatch('addFileToBuffer', {
+        path: file.path,
+        lines: file.lines
+      })
+    })
   },
   computed: {
     ...mapState({
       currentFile: state => state.file.currentFile,
-      currentColumnNumber: state => state.cursor.currentColumnNumber
+      currentColumnNumber: state => state.cursor.currentColumnNumber,
+      files: state => state.file.files
     }),
     ...mapGetters([
       'getWorkingLineContent'
@@ -52,21 +64,11 @@ export default {
       ipc.send('saveFile', self.currentFile)
     },
     load () {
-      const self = this
-      const ipc = this.$electron.ipcRenderer
-      const remote = this.$electron.remote
+      let ipc = this.$electron.ipcRenderer
+      let remote = this.$electron.remote
 
-      let file = remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
-      let path = file[0] // return value is name inc. path
-
-      ipc.send('loadFile', file[0]) // send to main thread to load using node filesystem api
-
-      ipc.on('fileLoaded', function (event, arg) {
-        self.$store.dispatch('addFile', {
-          path: path,
-          lines: arg
-        })
-      })
+      let files = remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
+      ipc.send('loadFiles', files)
     }
   }
 }

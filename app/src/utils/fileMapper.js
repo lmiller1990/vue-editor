@@ -1,9 +1,9 @@
 function processFile (payload) {
     // do stuff
     let file = {
-      filename: payload.path.split('/').pop(),
+      name: payload.path.split('/').pop(),
       path: payload.path,
-      id: 1,
+      id: payload.id,
       lines: []
     }
     let lines = payload.lines.split("\n")
