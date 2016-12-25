@@ -1,19 +1,16 @@
 <template lang="html">
   <div>
     <button id="loadFile" @click="load">Load File</button>
-    <input type="file" name="files[]" id="files" v-on:change="filesSelected" multiple>
+
+    <!-- <input type="file" name="files[]" id="files" v-on:change="filesSelected" multiple> -->
     <editor-input></editor-input>
     <container></container>
     <div class="debug">
       Debug:
-      <!-- <p>Current File: {{ $store.getters.getCurrentFile }} -->
-
-        <!-- Length: {{ $store.state.file.currentFile.lines[$store.state.cursor.currentLineNumber].content.length }}</p> -->
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
 
       <p>Line: {{ $store.state.cursor.currentLineNumber }}</p>
         Content: {{ getWorkingLineContent }}
-        <!-- Loaded Files: {{ $store.state.file.files }} -->
       </p>
     </div>
   </div>
@@ -34,6 +31,16 @@ export default {
     container,
     'editor-input': editorinput
   },
+  created () {
+    console.log(this.$electron)
+    const ipc = this.$electron.ipcRenderer
+    ipc.send('asynchronous-message', 'ping')
+
+    ipc.on('asynchronous-reply', function (event, arg) {
+      const message = `Asynchronous message reply: ${arg}`
+      console.log(message)
+    })
+  },
   computed: {
     ...mapState([
       'currentFile',
@@ -48,20 +55,7 @@ export default {
       'setCurrentFile'
     ]),
     load () {
-      this.$store.dispatch('addFile', { file: 'app/src/Components/Test.vue' })
-    },
-    filesSelected(evt) {
-      let input = evt.target
-
-      var reader = new FileReader()
-      reader.onload = function() {
-        var text = reader.result
-        console.log(reader.result)
-      };
-      reader.readAsText(input.files[0])
-    },
-    readTextFileAsync(file) {
-
+      this.$store.dispatch('addFile', { file: '/app/src/components/Test.vue' })
     }
   }
 }
