@@ -3,7 +3,6 @@
     <button id="loadFile" @click="load">Load File</button>
     <button id="saveFile" @click="save">Save File</button>
 
-    <!-- <input type="file" name="files[]" id="files" v-on:change="filesSelected" multiple> -->
     <editor-input></editor-input>
     <container></container>
     <div class="debug">
@@ -20,7 +19,8 @@
 <script>
 import container from './EditorMainContainer.vue'
 import editorinput from './EditorInput.vue'
-import { ipc } from 'electron'
+import { ipc, remote } from 'electron'
+
 
 import { mapState, mapMutations, mapGetters } from 'vuex'
 
@@ -49,16 +49,23 @@ export default {
       const self = this
       const ipc = this.$electron.ipcRenderer
       console.log("Sending saveFile message")
-      console.log(self.currentFile.lines)
-      ipc.send('saveFile', self.currentFile.lines)
+      ipc.send('saveFile', self.currentFile)
     },
     load () {
       const self = this
       const ipc = this.$electron.ipcRenderer
-      ipc.send('loadFile', 'Test.vue')
+      const remote = this.$electron.remote
+
+      let file = remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
+      let path = file[0] // return value is name inc. path
+
+      ipc.send('loadFile', file[0]) // send to main thread to load using node filesystem api
 
       ipc.on('fileLoaded', function (event, arg) {
-        self.$store.dispatch('addFile', { lines: arg })
+        self.$store.dispatch('addFile', {
+          path: path,
+          lines: arg
+        })
       })
     }
   }

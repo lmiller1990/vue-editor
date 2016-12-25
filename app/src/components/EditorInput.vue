@@ -16,9 +16,7 @@ export default {
   },
   methods: {
     update (event) {
-      console.log(event)
       if (isPrintableKey(event.keyCode)) {
-        this.userInput += event.key
         this.appendCharacter( { character: event.key })
         this.moveRight()
       }

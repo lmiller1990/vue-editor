@@ -1,8 +1,7 @@
 const cursorStore = {
   state: {
     currentLineNumber: 0,
-    currentColumnNumber: 0,
-    test: 'Hi!'
+    currentColumnNumber: 0
   },
 
   mutations: {

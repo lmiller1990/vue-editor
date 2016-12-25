@@ -32,7 +32,7 @@ const actions = {
   },
   moveRight ({commit, state}, payload) {
     let cursorState = cursorStore.state
-    if (cursorState.currentColumnNumber < fileStore.state.currentFile.lines[cursorState.currentLineNumber].content.length - 1)
+    if (cursorState.currentColumnNumber < fileStore.state.currentFile.lines[cursorState.currentLineNumber].content.length)
       commit('CHANGE_COLUMN', { direction: 'right'})
   },
   moveLeft ({commit}, payload) {

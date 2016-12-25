@@ -8,7 +8,6 @@ const fileStore = {
 
   mutations: {
     ADD_FILE (state, payload) {
-      console.log("Pushing", payload.file)
       state.files.push(payload.file)
     },
     SET_CURRENT_FILE (state, payload) {
@@ -45,9 +44,14 @@ const fileStore = {
 
   actions: {
     addFile ({commit, state, dispatch}, payload) {
-      let processedFile = processFile({ lines: payload.lines })
+      let processedFile = processFile({
+        path: payload.path,
+        lines: payload.lines
+      })
       commit('ADD_FILE', { file: processedFile })
       commit('SET_CURRENT_FILE', { id: 0 })
+
+      console.log(state.currentFile)
     }
   },
   getters: {
