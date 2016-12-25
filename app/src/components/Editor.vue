@@ -34,7 +34,6 @@ export default {
     const self = this
     let ipc = this.$electron.ipcRenderer
     ipc.on('fileLoaded', function (event, file) {
-      console.log(`Adding: ${file.path.split("/").pop()}`)
       self.$store.dispatch('addFileToBuffer', {
         path: file.path,
         lines: file.lines
@@ -58,15 +57,26 @@ export default {
     save () {
       const self = this
       const ipc = this.$electron.ipcRenderer
-      console.log("Sending saveFile message")
+      console.log(`Saved ${self.currentFile.name}`)
       ipc.send('saveFile', self.currentFile)
     },
     load () {
       let ipc = this.$electron.ipcRenderer
       let remote = this.$electron.remote
+      let files = remote.dialog.showOpenDialog({
+        properties: ['openFile', 'openDirectory', 'multiSelections']
+      })
+      let bufferedFiles = this.$store.state.file.files
 
-      let files = remote.dialog.showOpenDialog({properties: ['openFile', 'openDirectory', 'multiSelections']})
-      ipc.send('loadFiles', files)
+      for (let file in files) {
+        let newFile = true                // assume file has not been loaded yet
+        if (bufferedFiles.length > 0) {   // if no files have been loaded, no need to check
+          newFile = bufferedFiles.map((elem) => elem.path == files[file]).every((el) =>  el === false)
+        }
+        if (newFile) {
+          ipc.send('loadFiles', files[file])
+        }
+      }
     }
   }
 }

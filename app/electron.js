@@ -70,14 +70,11 @@ ipc.on('loadFile', function (event, arg) {
   })
 })
 
-ipc.on('loadFiles', function (event, files) {
-  for (let file in files) {
-    console.log(`Reading: ${files[file]}`)
-    fs.readFile(files[file], 'utf-8', function (err, data) {
-      if (err) throw err
-      event.sender.send('fileLoaded', { path: files[file], lines: data })
-    })
-  }
+ipc.on('loadFiles', function (event, file) {
+  fs.readFile(file, 'utf-8', function (err, data) {
+    if (err) throw err
+    event.sender.send('fileLoaded', { path: file, lines: data })
+  })
 })
 
 ipc.on('saveFile', function (event, arg) {

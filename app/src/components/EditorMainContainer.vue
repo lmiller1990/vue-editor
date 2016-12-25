@@ -9,9 +9,6 @@ import editorline   from './EditorLine.vue'
 import { mapGetters } from 'vuex'
 
 export default {
-  created () {
-    console.log(this.getCurrentLines)
-  },
   components: {
     'editor-line': editorline
   },
