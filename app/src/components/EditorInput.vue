@@ -1,20 +1,27 @@
 <template lang="html">
   <div>
-    <input type="text" v-model="userInput" v-on:keydown.prevent="update" v-on:keyup.prevent="updateKeyup">
+    <input type="text" v-focus="focus" v-model="userInput" v-on:keydown.prevent="update" v-on:keyup.prevent="updateKeyup">
   </div>
 </template>
 
 <script>
 import { isPrintableKey, meta } from '../utils/keyManager'
-import { mapMutations, mapActions } from 'vuex'
+import { mapMutations, mapActions, mapState } from 'vuex'
+import { focus } from 'vue-focus'
 
 export default {
+  directives: { focus: focus },
   data () {
     return {
       userInput: '',
       metaKeyDown: false,
       ctrlKeyDown: false
     }
+  },
+  computed: {
+    ...mapState([
+      'focus'
+    ])
   },
   methods: {
     update (event) {

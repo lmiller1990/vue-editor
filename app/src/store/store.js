@@ -7,9 +7,13 @@ import { fileStore } from './file/fileStore'
 Vue.use(Vuex)
 
 const state = {
+  focus: false
 }
 
 const mutations = {
+  FOCUS_EDITOR (state) {
+    state.focus = true
+  }
 }
 
 const actions = {

@@ -55,14 +55,6 @@ const fileStore = {
   },
 
   actions: {
-    addFile ({commit, state, dispatch}, payload) {
-      let processedFile = processFile({
-        id: state.file.fileCount,
-        path: payload.path,
-        lines: payload.lines
-      })
-      commit('ADD_FILE', { file: processedFile })
-    },
     addFileToBuffer ({commit, state}, payload) {
       let processedFile = processFile({
         id: state.fileCount,

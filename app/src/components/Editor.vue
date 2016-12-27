@@ -5,8 +5,9 @@
     <button id="loadFile" @click="load">Load File</button>
     <button id="saveFile" @click="save">Save File</button>
 
-    <editor-input></editor-input>
-    <container></container>
+    <EditorInput></EditorInput>
+    <EditorMainContainer></EditorMainContainer>
+
     <div class="debug">
       Debug Information:
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
@@ -17,8 +18,8 @@
 </template>
 
 <script>
-import container from './EditorMainContainer.vue'
-import editorinput from './EditorInput.vue'
+import EditorMainContainer from './EditorMainContainer.vue'
+import EditorInput from './EditorInput.vue'
 import { ipc, remote } from 'electron'
 import TabsContainer from './TabsContainer'
 
@@ -26,9 +27,9 @@ import { mapState, mapMutations, mapGetters } from 'vuex'
 
 export default {
   components: {
-    container,
-    'editor-input': editorinput,
-    TabsContainer
+    TabsContainer,
+    EditorInput,
+    EditorMainContainer
   },
   created () {
     const self = this

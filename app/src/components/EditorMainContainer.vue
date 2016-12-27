@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="editor container">
+  <div class="editor container" @click="focusEditor">
     <editor-line v-for="line in getCurrentLines" :line="line"></editor-line>
   </div>
 </template>
@@ -16,6 +16,10 @@ export default {
     ...mapGetters([
       'getCurrentLines'
     ])
+  },
+  methods: {
+    focusEditor () {
+    }
   }
 }
 </script>
