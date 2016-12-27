@@ -5,6 +5,9 @@ const cursorStore = {
   },
 
   mutations: {
+    JUMP_TO_COLUMN (state, payload) {
+      state.currentColumnNumber = payload.column
+    },
     CHANGE_COLUMN (state, payload) {
       if (payload.direction == 'right') {
           state.currentColumnNumber++

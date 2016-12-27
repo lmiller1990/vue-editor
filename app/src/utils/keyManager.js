@@ -11,8 +11,13 @@ function isPrintableKey (keyCode, meta, ctrl) {
     (keyCode > 95 && keyCode < 112)  || // numpad keys
     (keyCode > 185 && keyCode < 193) || // ;=,-./` (in order)
     (keyCode > 218 && keyCode < 223);   // [\]' (in order)
-    
+
     return (valid && !meta && !ctrl)
 }
 
-export { isModifier, isPrintableKey }
+function meta (keyCode) {
+  if (keyCode == 221) // right square bracket
+    return 'Go to end of line'
+}
+
+export { isModifier, isPrintableKey, meta }

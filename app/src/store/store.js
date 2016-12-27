@@ -13,17 +13,6 @@ const mutations = {
 }
 
 const actions = {
-  saveFile (context) {
-    var txtFile = "test.txt";
-    var file = new File(txtFile);
-    var str = "My string of text";
-
-    file.open("w"); // open file with write access
-    file.writeln("First line of text");
-    file.writeln("Second line of text " + str);
-    file.write(str);
-    file.close();
-  },
   appendCharacter ({commit, state}, payload) {
     commit('APPEND_CHARACTER', {
       character: payload.character,
@@ -62,6 +51,9 @@ const actions = {
       content: afterCursor,
       lineStartIndex: cursorStore.state.currentColumnNumber + 1
     })
+  },
+  gotoLastCharacterOfLine ({commit, state, getters}) {
+    commit('JUMP_TO_COLUMN', { column: getters.getWorkingLineContent.trimRight().length })
   }
 }
 

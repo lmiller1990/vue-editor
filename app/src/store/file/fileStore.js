@@ -13,13 +13,9 @@ const fileStore = {
       state.files.push(payload.file)
     },
     SET_CURRENT_FILE (state, payload) {
-
       for (let f in state.files) {
         if (payload.id != state.files[f].id) {
-        console.log(`Comparing ${state.files[f].name} with order ${state.files[f].order}`)
-        console.log(`To ${payload.name} with order ${payload.order}`)
           if (state.files[f].order < payload.order){
-            console.log(`Increasing order by 1`)
             state.files[f].order++
           }
         } else {

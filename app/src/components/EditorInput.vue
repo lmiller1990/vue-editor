@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { isPrintableKey } from '../utils/keyManager'
+import { isPrintableKey, meta } from '../utils/keyManager'
 import { mapMutations, mapActions } from 'vuex'
 
 export default {
@@ -20,6 +20,13 @@ export default {
     update (event) {
       if (event.keyCode == 91) this.metaKeyDown = true
       if (event.keyCode == 17) this.ctrlKeyDown = true
+
+      console.log(event.keyCode)
+
+      if (this.metaKeyDown) {
+        if (event.keyCode == 221)
+          this.gotoLastCharacterOfLine()
+      }
 
       if (isPrintableKey(event.keyCode, this.metaKeyDown, this.ctrlKeyDown)) {
         this.appendCharacter( { character: event.key })
@@ -48,7 +55,6 @@ export default {
       }
     },
     updateKeyup (event) {
-      console.log(event)
       if (event.keyCode == 17) this.ctrlKeyDown = false
       if (event.keyCode == 91) this.metaKeyDown = false
     },
@@ -59,7 +65,8 @@ export default {
       'moveDown',
       'addLineBreak',
       'removeCurrentCharacter',
-      'appendCharacter'
+      'appendCharacter',
+      'gotoLastCharacterOfLine'
     ])
   }
 }
