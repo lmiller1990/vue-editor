@@ -26,6 +26,8 @@ export default {
       if (this.metaKeyDown) {
         if (event.keyCode == 221)
           this.gotoLastCharacterOfLine()
+        if (event.keyCode == 219)
+          this.gotoFirstCharacterOfLine()
       }
 
       if (isPrintableKey(event.keyCode, this.metaKeyDown, this.ctrlKeyDown)) {
@@ -66,7 +68,8 @@ export default {
       'addLineBreak',
       'removeCurrentCharacter',
       'appendCharacter',
-      'gotoLastCharacterOfLine'
+      'gotoLastCharacterOfLine',
+      'gotoFirstCharacterOfLine'
     ])
   }
 }

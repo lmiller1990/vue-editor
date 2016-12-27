@@ -24,6 +24,32 @@ const cursorStore = {
         state.currentLineNumber--
       }
     }
+  },
+
+  actions: {
+    gotoLastCharacterOfLine ({commit, state, getters}) {
+      commit('JUMP_TO_COLUMN', { column: getters.getCurrentLineContent.trimRight().length })
+    },
+    gotoFirstCharacterOfLine({commit, state, getters}) {
+      if (getters.getCurrentLineContent.trim().length > 0)
+        commit('JUMP_TO_COLUMN', { column: getters.getCurrentLineContent.search(/\S|$/) }) // first non white space
+    },
+    moveRight ({commit, state, rootState}, payload) {
+      if (state.currentColumnNumber < rootState.file.currentFile.lines[state.currentLineNumber].content.length)
+        commit('CHANGE_COLUMN', { direction: 'right'})
+    },
+    moveLeft ({commit, state}, payload) {
+      if (state.currentColumnNumber - 1 >= 0)
+        commit('CHANGE_COLUMN', { direction: 'left' })
+    },
+    moveDown ({commit, state, rootState}) {
+      if (state.currentLineNumber < rootState.file.currentFile.lines.length - 1)
+        commit('CHANGE_LINE', { direction: 'down' })
+    },
+    moveUp ({commit, state}) {
+      if (state.currentLineNumber > 0)
+        commit('CHANGE_LINE', { direction: 'up' })
+    },
   }
 }
 export { cursorStore }

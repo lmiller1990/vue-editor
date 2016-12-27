@@ -47,7 +47,7 @@ export default {
       files: state => state.file.files
     }),
     ...mapGetters([
-      'getWorkingLineContent'
+      'getCurrentLineContent'
     ])
   },
   methods: {

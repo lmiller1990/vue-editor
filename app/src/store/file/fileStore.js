@@ -1,4 +1,4 @@
-import { processFile } from '../../utils/fileMapper'
+import { processFile, addWhitespaceTilEndOfLine } from '../../utils/fileMapper'
 
 const fileStore = {
   state: {
@@ -32,7 +32,7 @@ const fileStore = {
           currentLines[line].id++
       }
       currentLines.splice(payload.lineIndexToInsertAt , 0, {
-        id: payload.lineIndexToInsertAt, content: payload.content })
+        id: payload.lineIndexToInsertAt, content: addWhitespaceTilEndOfLine(payload.content) })
     },
     UPDATE_LINE_CONTENT (state, payload) {
       let whiteSpace = new Array(payload.lineStartIndex).join(' ')
@@ -62,7 +62,6 @@ const fileStore = {
         lines: payload.lines
       })
       commit('ADD_FILE', { file: processedFile })
-      // commit('SET_CURRENT_FILE', { id: 0 })
     },
     addFileToBuffer ({commit, state}, payload) {
       let processedFile = processFile({
@@ -71,17 +70,29 @@ const fileStore = {
         lines: payload.lines
       })
       commit('ADD_FILE', { file: processedFile })
+    },
+    appendCharacter ({commit, state, rootState}, payload) {
+      commit('APPEND_CHARACTER', {
+        character: payload.character,
+        x: rootState.cursor.currentColumnNumber,
+        y: rootState.cursor.currentLineNumber })
+    },
+    removeCurrentCharacter ({commit, state, rootState}) {
+      if (rootState.cursor.currentColumnNumber > 0)
+        commit('REMOVE_CURRENT_CHARACTER', { x: rootState.cursor.currentColumnNumber, y: rootState.cursor.currentLineNumber })
     }
   },
   getters: {
-
+    getCurrentLineContent: (state, getters, rootState) => {
+      if (state.currentFile)
+        return state.currentFile.lines[rootState.cursor.currentLineNumber].content
+    },
     getCurrentLines (state, getters) {
       if (state.currentFile) {
         return state.currentFile.lines
       }
     },
     getOrdered (state) {
-      console.log('getting')
       return state.files.sort(function (a,b) { return a.order - b.order} )
     }
   }
