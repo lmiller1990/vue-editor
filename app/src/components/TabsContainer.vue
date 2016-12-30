@@ -4,7 +4,7 @@
     {{ file.name }}
   </div>
   <div class="right floated tab">
-    Lookup file...
+    {{ query }}
   </div>
 </span>
 </template>
@@ -14,7 +14,8 @@ import { mapState, mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapState({
-      getBufferedFiles: state => state.file.files
+      getBufferedFiles: state => state.file.files,
+      query: state => state.editor.fuzzySearchString
     }),
     ...mapGetters([
       'getOrdered'

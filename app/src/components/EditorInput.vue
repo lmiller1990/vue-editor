@@ -19,9 +19,10 @@ export default {
     }
   },
   computed: {
-    ...mapState([
-      'focus'
-    ])
+    ...mapState({
+      'focus': focus,
+      'isFuzzySearching': state => state.editor.isFuzzySearching
+    })
   },
   methods: {
     update (event) {
@@ -36,13 +37,17 @@ export default {
         if (event.keyCode == 219)
           this.gotoFirstCharacterOfLine()
         if (event.keyCode == 80) { // p - open file dialog?
-          this.$store.state.editor.isOpeningAFile = true
+          this.$store.commit('editor/SET_FUZZY_SEARCHING', true)
         }
       }
 
       if (isPrintableKey(event.keyCode, this.metaKeyDown, this.ctrlKeyDown)) {
-        this.appendCharacter( { character: event.key })
-        this.moveRight()
+        if (this.isFuzzySearching)
+          this.$store.commit('editor/UPDATE_FUZZY_SEARCH_STRING', { query: event.key })
+        else {
+          this.appendCharacter( { character: event.key })
+          this.moveRight()
+        }
       }
       if (event.keyCode == 13) {
         // return key
