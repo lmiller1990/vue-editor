@@ -3,6 +3,9 @@
   <div class="tab" v-for="file in getOrdered" @click="setActiveTab(file)">
     {{ file.name }}
   </div>
+  <div class="right floated tab">
+    Lookup file...
+  </div>
 </span>
 </template>
 
@@ -34,5 +37,8 @@ export default {
   margin-right: 1em;
 }
 
+.right.floated {
+  float: right;
+}
 
 </style>

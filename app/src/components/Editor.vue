@@ -9,6 +9,7 @@
     <EditorMainContainer></EditorMainContainer>
 
     <div class="debug">
+      Editing a file: {{ $store.state.editor.isOpeningAFile }}
       Debug Information:
       <p>Column: {{ $store.state.cursor.currentColumnNumber }}</p>
       <p>Line: {{ $store.state.cursor.currentLineNumber }}</p>

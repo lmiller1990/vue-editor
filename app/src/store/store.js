@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import { text } from '../assets/sampletext'
 import { cursorStore } from './cursor/cursorStore'
 import { fileStore } from './file/fileStore'
+import { editorStore } from './editor/editorStore'
 
 Vue.use(Vuex)
 
@@ -37,6 +38,7 @@ export default new Vuex.Store({
   mutations,
   modules: {
     cursor: cursorStore,
-    file: fileStore
+    file: fileStore,
+    editor: editorStore
   }
 })

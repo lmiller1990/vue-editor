@@ -35,6 +35,9 @@ export default {
           this.gotoLastCharacterOfLine()
         if (event.keyCode == 219)
           this.gotoFirstCharacterOfLine()
+        if (event.keyCode == 80) { // p - open file dialog?
+          this.$store.state.editor.isOpeningAFile = true
+        }
       }
 
       if (isPrintableKey(event.keyCode, this.metaKeyDown, this.ctrlKeyDown)) {
