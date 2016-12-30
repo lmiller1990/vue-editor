@@ -5,6 +5,9 @@
   </div>
   <div class="right floated tab">
     {{ query }}
+    <div v-for="result in fuzzyResults">
+      {{ result.name }}
+    </div>
   </div>
 </span>
 </template>
@@ -15,7 +18,8 @@ export default {
   computed: {
     ...mapState({
       getBufferedFiles: state => state.file.files,
-      query: state => state.editor.fuzzySearchString
+      query: state => state.editor.fuzzySearchString,
+      fuzzyResults: state => state.editor.fuzzySearchResults
     }),
     ...mapGetters([
       'getOrdered'

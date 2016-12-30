@@ -15,9 +15,15 @@ function isPrintableKey (keyCode, meta, ctrl) {
     return (valid && !meta && !ctrl)
 }
 
+function isEscapeKey (keyCode) {
+  if (keyCode == 27)
+    return true
+  else
+    return false
+}
 function meta (keyCode) {
   if (keyCode == 221) // right square bracket
     return 'Go to end of line'
 }
 
-export { isModifier, isPrintableKey, meta }
+export { isModifier, isPrintableKey, meta, isEscapeKey }

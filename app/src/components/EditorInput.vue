@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { isPrintableKey, meta } from '../utils/keyManager'
+import { isPrintableKey, meta, isEscapeKey } from '../utils/keyManager'
 import { mapMutations, mapActions, mapState } from 'vuex'
 import { focus } from 'vue-focus'
 
@@ -49,9 +49,11 @@ export default {
           this.moveRight()
         }
       }
-      if (event.keyCode == 13) {
-        // return key
-        this.addLineBreak()
+      if (event.keyCode == 13) { // return key
+        if (this.isFuzzySearching)
+          this.$store.dispatch('editor/fuzzySearch')
+        else
+          this.addLineBreak()
       }
       if (event.keyCode == 40)
         this.moveDown()
@@ -69,6 +71,10 @@ export default {
         // backspace
         this.removeCurrentCharacter()
         this.moveLeft()
+      }
+
+      if (isEscapeKey(event.keyCode)) {
+        this.$store.commit('editor/SET_FUZZY_SEARCHING', false)
       }
     },
     updateKeyup (event) {

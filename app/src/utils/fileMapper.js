@@ -32,31 +32,30 @@ function fuzzyMatch(searchSet, query) {
   var tokens = query.toLowerCase().split(''),
     matches = [];
 
-  searchSet.forEach(function(string) {
+  searchSet.forEach(function(file) {
     var tokenIndex = 0,
       stringIndex = 0,
-      matchWithHighlights = '',
       matchedPositions = [];
 
-    string = string.toLowerCase();
+    let string = file.name.toString().toLowerCase();
 
     while (stringIndex < string.length) {
       if (string[stringIndex] === tokens[tokenIndex]) {
-        matchWithHighlights += highlight(string[stringIndex]);
         matchedPositions.push(stringIndex);
         tokenIndex++;
 
         if (tokenIndex >= tokens.length) {
           matches.push({
             match: string,
-            highlighted: matchWithHighlights + string.slice(stringIndex + 1),
+            id: file.id,
+            name: file.name,
             positions: matchedPositions
           });
 
           break;
         }
       } else {
-        matchWithHighlights += string[stringIndex];
+        // matchWithHighlights += string[stringIndex];
       }
 
       stringIndex++;
